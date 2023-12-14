@@ -1,16 +1,20 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from flask import Flask, render_template
+from flask import request
+from datetime import datetime
 
 
-# Press the green button in the gutter to run the script.
+app = Flask(__name__)
+
+
+@app.route("/", methods=['POST', 'GET'])
+def hook_from_b24():
+    with open('wh_saver.txt', 'a') as f:
+        f.write(f"{datetime.now()} {request}\r")
+    return "Outhookfromb24"
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # run app in debug mode on port 5000
+    app.run(debug=True, port=5432, host='0.0.0.0')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
